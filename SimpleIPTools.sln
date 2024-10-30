@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleIPTools", "SimpleIPTools\SimpleIPTools.csproj", "{AC4BDA95-178E-4790-A27D-522F01611057}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC4BDA95-178E-4790-A27D-522F01611057}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC4BDA95-178E-4790-A27D-522F01611057}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC4BDA95-178E-4790-A27D-522F01611057}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC4BDA95-178E-4790-A27D-522F01611057}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1CB2B54C-E1CC-4451-A08E-CED609661E19}
+	EndGlobalSection
+EndGlobal
