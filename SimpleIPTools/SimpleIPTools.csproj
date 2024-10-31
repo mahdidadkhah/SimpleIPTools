@@ -14,11 +14,4 @@
 	  <Version>1.0.1</Version>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\..\..\..\Downloads\SimpleIPTools_Icon.jpg">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
 </Project>
