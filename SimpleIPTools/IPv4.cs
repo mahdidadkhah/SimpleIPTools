@@ -108,7 +108,7 @@ namespace SimpleIPTools
             return result;
         }
 
-        public static string ToUncompressedString(this IPAddress ipAddress)
+        public static string ToUncompressedString(IPAddress ipAddress)
         {
             if (ipAddress.AddressFamily == AddressFamily.InterNetwork)  // IPv4
             {
@@ -121,6 +121,20 @@ namespace SimpleIPTools
             return ipAddress.ToString();    // all else treat as to string
         }
 
-        
+        public static string ToUncompressedString(string ipAddress)
+        {
+            var _ipAddress = System.Net.IPAddress.Parse(ipAddress);
+            if (_ipAddress.AddressFamily == AddressFamily.InterNetwork)  // IPv4
+            {
+                var strings = _ipAddress.GetAddressBytes()
+                    .Select(b => string.Format("{0:D3}", b));   // format bytes with padded 0s
+
+                return string.Join(".", strings);   // join padded strings with '.' character
+            }
+
+            return ipAddress.ToString();    // all else treat as to string
+        }
+
+
     }
 }

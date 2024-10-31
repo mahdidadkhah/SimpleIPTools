@@ -22,6 +22,24 @@ namespace SimpleIPTools
             return ipAddress.ToString();    // all else treat as to string
         }
 
+        public static string ToUncompressedString(string ipAddress)
+        {
+            var _ipAddress = System.Net.IPAddress.Parse(ipAddress);
+            if (_ipAddress.AddressFamily == AddressFamily.InterNetworkV6)    // IPv6
+            {
+
+                var strings = Enumerable.Range(0, 8)    // create index
+                                        .Select(i => _ipAddress.GetAddressBytes().ToList().GetRange(i * 2, 2))       // get 8 chunks of bytes
+                                        .Select(i => { i.Reverse(); return i; })    // reverse bytes for endianness
+                                        .Select(bytes => BitConverter.ToInt16(bytes.ToArray(), 0))  // convert bytes to 16 bit int
+                                        .Select(int16 => string.Format("{0:X4}", int16).ToUpper()); // format int as a 4 digit hex 
+
+                return string.Join(":", strings);   // join hex ints with ':'
+            }
+
+            return ipAddress.ToString();    // all else treat as to string
+        }
+
         public class IPAddressRange
         {
             readonly AddressFamily addressFamily;
