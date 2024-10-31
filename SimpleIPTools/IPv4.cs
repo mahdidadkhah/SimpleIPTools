@@ -5,15 +5,52 @@ namespace SimpleIPTools
 {
     public static class IPv4
     {
+        public class IPAddressRange
+        {
+            readonly AddressFamily addressFamily;
+            readonly byte[] lowerBytes;
+            readonly byte[] upperBytes;
+
+            public IPAddressRange(IPAddress lowerInclusive, IPAddress upperInclusive)
+            {
+                this.addressFamily = lowerInclusive.AddressFamily;
+                this.lowerBytes = lowerInclusive.GetAddressBytes();
+                this.upperBytes = upperInclusive.GetAddressBytes();
+            }
+
+            public bool IsInRange(IPAddress address)
+            {
+                if (address.AddressFamily != addressFamily)
+                {
+                    return false;
+                }
+
+                byte[] addressBytes = address.GetAddressBytes();
+
+                bool lowerBoundary = true, upperBoundary = true;
+
+                for (int i = 0; i < this.lowerBytes.Length &&
+                    (lowerBoundary || upperBoundary); i++)
+                {
+                    if ((lowerBoundary && addressBytes[i] < lowerBytes[i]) ||
+                        (upperBoundary && addressBytes[i] > upperBytes[i]))
+                    {
+                        return false;
+                    }
+                    lowerBoundary &= (addressBytes[i] == lowerBytes[i]);
+                    upperBoundary &= (addressBytes[i] == upperBytes[i]);
+                }
+                return true;
+            }
+        }
+
         private static long iMask(int s)
         {
             return (long)(Math.Pow(2, 32) - Math.Pow(2, (32 - s)));
         }
-
         private static string long2ip(long ipAddress)
         {
-            System.Net.IPAddress ip;
-            if (System.Net.IPAddress.TryParse(ipAddress.ToString(), out ip))
+            if (System.Net.IPAddress.TryParse(ipAddress.ToString(), out var ip))
             {
                 return ip.ToString();
             }
@@ -21,13 +58,14 @@ namespace SimpleIPTools
         }
         private static long ip2long(string ipAddress)
         {
-            System.Net.IPAddress ip;
-            if (System.Net.IPAddress.TryParse(ipAddress, out ip))
+            if (System.Net.IPAddress.TryParse(ipAddress, out var ip))
             {
                 return (((long)ip.GetAddressBytes()[0] << 24) | ((long)ip.GetAddressBytes()[1] << 16) | ((long)ip.GetAddressBytes()[2] << 8) | ip.GetAddressBytes()[3]);
             }
             return -1;
         }
+
+
         public static string GetPreviousIP(string ipAddress)
         {
             return long2ip(ip2long(ipAddress) - 1);
@@ -83,43 +121,6 @@ namespace SimpleIPTools
             return ipAddress.ToString();    // all else treat as to string
         }
 
-        public class IPAddressRange
-        {
-            readonly AddressFamily addressFamily;
-            readonly byte[] lowerBytes;
-            readonly byte[] upperBytes;
-
-            public IPAddressRange(IPAddress lowerInclusive, IPAddress upperInclusive)
-            {
-                this.addressFamily = lowerInclusive.AddressFamily;
-                this.lowerBytes = lowerInclusive.GetAddressBytes();
-                this.upperBytes = upperInclusive.GetAddressBytes();
-            }
-
-            public bool IsInRange(IPAddress address)
-            {
-                if (address.AddressFamily != addressFamily)
-                {
-                    return false;
-                }
-
-                byte[] addressBytes = address.GetAddressBytes();
-
-                bool lowerBoundary = true, upperBoundary = true;
-
-                for (int i = 0; i < this.lowerBytes.Length &&
-                    (lowerBoundary || upperBoundary); i++)
-                {
-                    if ((lowerBoundary && addressBytes[i] < lowerBytes[i]) ||
-                        (upperBoundary && addressBytes[i] > upperBytes[i]))
-                    {
-                        return false;
-                    }
-                    lowerBoundary &= (addressBytes[i] == lowerBytes[i]);
-                    upperBoundary &= (addressBytes[i] == upperBytes[i]);
-                }
-                return true;
-            }
-        }
+        
     }
 }
