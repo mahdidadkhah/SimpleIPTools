@@ -6,6 +6,18 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>A Set of Simple but Useful Tools for Working with IPv4 and IPv6</Title>
+    <Authors>MahdiDT</Authors>
+    <PackageProjectUrl>https://github.com/mahdidadkhah/SimpleIPTools</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mahdidadkhah/SimpleIPTools</RepositoryUrl>
+    <PackageIcon>kvm-extenders-pad-icon-280x158.jpg</PackageIcon>
+    <PackageTags>ip, ipv4, ipv6, ip tools, ripe</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Downloads\kvm-extenders-pad-icon-280x158.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
