@@ -9,12 +9,13 @@
     <Authors>MahdiDT</Authors>
     <PackageProjectUrl>https://github.com/mahdidadkhah/SimpleIPTools</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mahdidadkhah/SimpleIPTools</RepositoryUrl>
-    <PackageIcon>kvm-extenders-pad-icon-280x158.jpg</PackageIcon>
+    <PackageIcon>SimpleIPTools_Icon.jpg</PackageIcon>
     <PackageTags>ip, ipv4, ipv6, ip tools, ripe</PackageTags>
+	  <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\Downloads\kvm-extenders-pad-icon-280x158.jpg">
+    <None Include="..\..\..\..\Downloads\SimpleIPTools_Icon.jpg">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
