@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -13,5 +13,7 @@
     <PackageTags>ip, ipv4, ipv6, ip tools, ripe</PackageTags>
 	  <Version>1.0.1</Version>
   </PropertyGroup>
-
+	<ItemGroup>
+		<None Include="SimpleIPTools_Icon.jpg" Pack="true" PackagePath="\" />
+	</ItemGroup>
 </Project>
