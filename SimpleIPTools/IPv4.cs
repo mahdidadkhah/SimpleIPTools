@@ -1,5 +1,6 @@
 ﻿using System.Net.Sockets;
 using System.Net;
+using LukeSkywalker.IPNetwork;
 
 namespace SimpleIPTools
 {
@@ -10,6 +11,7 @@ namespace SimpleIPTools
             readonly AddressFamily addressFamily;
             readonly byte[] lowerBytes;
             readonly byte[] upperBytes;
+
 
             public IPAddressRange(IPAddress lowerInclusive, IPAddress upperInclusive)
             {
@@ -64,8 +66,33 @@ namespace SimpleIPTools
             }
             return -1;
         }
-
-
+        /// <summary>
+        /// Remove an ip/subnet from a bigger ip/subnet
+        /// </summary>
+        /// <param name="address">the network address</param>
+        /// <param name="remove">the network address to be removed</param>
+        /// <returns>List of ip/subnet</returns>
+        public static List<string> RemoveIP(IPNetwork address, IPNetwork remove)
+        {
+            var checkrange = new IPAddressRange(address.Network, address.Broadcast);
+            if (checkrange.IsInRange(remove.Network) && checkrange.IsInRange(remove.Broadcast))
+            {
+                var list1 = Convert2CIDR(address.Network.ToString(), GetPreviousIP(remove.Network.ToString()));
+                var list2 = Convert2CIDR(GetNextIP(remove.Broadcast.ToString()), address.Broadcast.ToString());
+                list2.AddRange(list1);
+                list2 = list2.Distinct().ToList();
+                return list2;
+            }
+            else if (checkrange.IsInRange(remove.Network))
+            {
+                return Convert2CIDR(address.Network.ToString(), GetPreviousIP(remove.Network.ToString()));
+            }
+            else if (checkrange.IsInRange(remove.Broadcast))
+            {
+                return Convert2CIDR(GetNextIP(remove.Broadcast.ToString()), address.Broadcast.ToString());
+            }
+            return new List<string>() { address.ToString() };
+        }
         public static string GetPreviousIP(string ipAddress)
         {
             return long2ip(ip2long(ipAddress) - 1);
@@ -74,6 +101,7 @@ namespace SimpleIPTools
         {
             return long2ip(ip2long(ipAddress) + 1);
         }
+
         public static List<string> Convert2CIDR(string ipStart, string ipEnd)
         {
             long start = ip2long(ipStart);

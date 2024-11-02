@@ -1,3 +1,4 @@
+using LukeSkywalker.IPNetwork;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleIPTools;
 
@@ -77,6 +78,21 @@ namespace SimpleIPTools.Test
 
             // Act
             var result = IPv4.Convert2CIDR(ipStart, ipEnd);
+
+            // Assert
+            CollectionAssert.AreEquivalent(expectedResult, result);
+        }
+
+        [TestMethod]
+        public void RemoveIP_IncludeRange_ReturnsMoreThanOneCIDR()
+        {
+            // Arrange
+            var address = IPNetwork.Parse("192.168.1.0/26");
+            var remove = IPNetwork.Parse("192.168.1.0/28");
+            var expectedResult = new List<string> { "192.168.1.16/28", "192.168.1.32/27" };
+
+            // Act
+            var result = IPv4.RemoveIP(address, remove);
 
             // Assert
             CollectionAssert.AreEquivalent(expectedResult, result);
